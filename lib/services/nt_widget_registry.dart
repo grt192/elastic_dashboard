@@ -33,6 +33,9 @@ import 'package:elastic_dashboard/widgets/nt_widgets/multi_topic/three_axis_acce
 import 'package:elastic_dashboard/widgets/nt_widgets/multi_topic/ultrasonic.dart';
 import 'package:elastic_dashboard/widgets/nt_widgets/multi_topic/yagsl_swerve_drive.dart';
 import 'package:elastic_dashboard/widgets/nt_widgets/nt_widget.dart';
+import 'package:elastic_dashboard/widgets/nt_widgets/climb_nt_widget.dart';
+import 'package:elastic_dashboard/widgets/nt_widgets/intake_nt_widget.dart';
+import 'package:elastic_dashboard/widgets/nt_widgets/shooter_nt_widget.dart';
 import 'package:elastic_dashboard/widgets/nt_widgets/single_topic/boolean_box.dart';
 import 'package:elastic_dashboard/widgets/nt_widgets/single_topic/graph.dart';
 import 'package:elastic_dashboard/widgets/nt_widgets/single_topic/large_text_display.dart';
@@ -396,6 +399,27 @@ class NTWidgetRegistry {
       minHeight: _normalSize * 2,
       defaultWidth: 2,
       defaultHeight: 2,
+    );
+
+    registerSingleTopic(
+      name: IntakeStateWidget.widgetType,
+      model: IntakeStateModel.new,
+      widget: IntakeStateWidget.new,
+      fromJson: IntakeStateModel.fromJson,
+    );
+
+    registerSingleTopic(
+      name: ShooterStateWidget.widgetType,
+      model: ShooterStateModel.new,
+      widget: ShooterStateWidget.new,
+      fromJson: ShooterStateModel.fromJson,
+    );
+
+    registerSingleTopic(
+      name: ClimbStateWidget.widgetType,
+      model: ClimbStateModel.new,
+      widget: ClimbStateWidget.new,
+      fromJson: ClimbStateModel.fromJson,
     );
 
     registerWithoutModel(

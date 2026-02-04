@@ -4,13 +4,19 @@ import 'package:popover/popover.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:elastic_dashboard/services/nt_connection.dart';
+import 'package:elastic_dashboard/services/nt_widget_registry.dart';
 import 'package:elastic_dashboard/widgets/dialog_widgets/dialog_text_input.dart';
 import 'package:elastic_dashboard/widgets/dialog_widgets/dialog_toggle_switch.dart';
 import 'package:elastic_dashboard/widgets/dialog_widgets/layout_drag_tile.dart';
+import 'package:elastic_dashboard/widgets/dialog_widgets/widget_drag_tile.dart';
 import 'package:elastic_dashboard/widgets/draggable_containers/models/layout_container_model.dart';
+import 'package:elastic_dashboard/widgets/draggable_containers/models/nt_widget_container_model.dart';
 import 'package:elastic_dashboard/widgets/draggable_containers/models/widget_container_model.dart';
 import 'package:elastic_dashboard/widgets/draggable_dialog.dart';
 import 'package:elastic_dashboard/widgets/network_tree/networktables_tree.dart';
+import 'package:elastic_dashboard/widgets/nt_widgets/climb_nt_widget.dart';
+import 'package:elastic_dashboard/widgets/nt_widgets/intake_nt_widget.dart';
+import 'package:elastic_dashboard/widgets/nt_widgets/shooter_nt_widget.dart';
 import 'package:elastic_dashboard/widgets/tab_grid.dart';
 
 class AddWidgetDialog extends StatefulWidget {
@@ -82,7 +88,7 @@ class _AddWidgetDialogState extends State<AddWidgetDialog> {
       child: Card(
         margin: const EdgeInsets.all(10.0),
         child: DefaultTabController(
-          length: 2,
+          length: 3,
           child: Column(
             children: [
               const Icon(Icons.drag_handle, color: Colors.grey),
@@ -95,6 +101,7 @@ class _AddWidgetDialogState extends State<AddWidgetDialog> {
                 tabs: [
                   Tab(text: 'Network Tables'),
                   Tab(text: 'Layouts'),
+                  Tab(text: 'Custom'),
                 ],
               ),
               const SizedBox(height: 5),
@@ -121,6 +128,91 @@ class _AddWidgetDialogState extends State<AddWidgetDialog> {
                           layoutBuilder: widget.grid.createListLayout,
                           onDragUpdate: widget.onLayoutDragUpdate,
                           onDragEnd: widget.onLayoutDragEnd,
+                          onRemoveWidget: () => onRemove(widget.grid),
+                        ),
+                      ],
+                    ),
+                    ListView(
+                      children: [
+                        WidgetDragTile(
+                          gridIndex: widget.gridIndex,
+                          title: 'Intake State',
+                          icon: Icons.input,
+                          widgetBuilder: () {
+                            IntakeStateModel model = IntakeStateModel(
+                              ntConnection: widget.ntConnection,
+                              preferences: widget.preferences,
+                              topic: '/SmartDashboard/Intake/State',
+                            );
+                            double width =
+                                NTWidgetRegistry.getDefaultWidth(model);
+                            double height =
+                                NTWidgetRegistry.getDefaultHeight(model);
+                            return NTWidgetContainerModel(
+                              ntConnection: widget.ntConnection,
+                              preferences: widget.preferences,
+                              initialPosition:
+                                  Rect.fromLTWH(0, 0, width, height),
+                              title: 'Intake State',
+                              childModel: model,
+                            );
+                          },
+                          onDragUpdate: widget.onNTDragUpdate,
+                          onDragEnd: widget.onNTDragEnd,
+                          onRemoveWidget: () => onRemove(widget.grid),
+                        ),
+                        WidgetDragTile(
+                          gridIndex: widget.gridIndex,
+                          title: 'Shooter State',
+                          icon: Icons.rocket_launch,
+                          widgetBuilder: () {
+                            ShooterStateModel model = ShooterStateModel(
+                              ntConnection: widget.ntConnection,
+                              preferences: widget.preferences,
+                              topic: '/SmartDashboard/Shooter/State',
+                            );
+                            double width =
+                                NTWidgetRegistry.getDefaultWidth(model);
+                            double height =
+                                NTWidgetRegistry.getDefaultHeight(model);
+                            return NTWidgetContainerModel(
+                              ntConnection: widget.ntConnection,
+                              preferences: widget.preferences,
+                              initialPosition:
+                                  Rect.fromLTWH(0, 0, width, height),
+                              title: 'Shooter State',
+                              childModel: model,
+                            );
+                          },
+                          onDragUpdate: widget.onNTDragUpdate,
+                          onDragEnd: widget.onNTDragEnd,
+                          onRemoveWidget: () => onRemove(widget.grid),
+                        ),
+                        WidgetDragTile(
+                          gridIndex: widget.gridIndex,
+                          title: 'Climb State',
+                          icon: Icons.terrain,
+                          widgetBuilder: () {
+                            ClimbStateModel model = ClimbStateModel(
+                              ntConnection: widget.ntConnection,
+                              preferences: widget.preferences,
+                              topic: '/SmartDashboard/Climb/State',
+                            );
+                            double width =
+                                NTWidgetRegistry.getDefaultWidth(model);
+                            double height =
+                                NTWidgetRegistry.getDefaultHeight(model);
+                            return NTWidgetContainerModel(
+                              ntConnection: widget.ntConnection,
+                              preferences: widget.preferences,
+                              initialPosition:
+                                  Rect.fromLTWH(0, 0, width, height),
+                              title: 'Climb State',
+                              childModel: model,
+                            );
+                          },
+                          onDragUpdate: widget.onNTDragUpdate,
+                          onDragEnd: widget.onNTDragEnd,
                           onRemoveWidget: () => onRemove(widget.grid),
                         ),
                       ],
