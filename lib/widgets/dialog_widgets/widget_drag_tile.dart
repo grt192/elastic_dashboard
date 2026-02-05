@@ -53,8 +53,7 @@ class _WidgetDragTileState extends State<WidgetDragTile> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return InkWell(
+  Widget build(BuildContext context) => InkWell(
       onTap: () {},
       child: DragListener(
         onDragStart: (details) {
@@ -91,5 +90,4 @@ class _WidgetDragTileState extends State<WidgetDragTile> {
         ),
       ),
     );
-  }
 }
