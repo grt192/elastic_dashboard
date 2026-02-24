@@ -1,0 +1,48 @@
+name: elastic-dashboard
+
+x-build-args: &build-args
+  build:
+    context: .
+    args:
+      FLUTTER_VERSION: "3.38.6"
+
+services:
+  # Run the full test suite
+  test:
+    <<: *build-args
+    build:
+      context: .
+      args:
+        FLUTTER_VERSION: "3.38.6"
+      target: test
+    volumes:
+      - ./coverage:/app/coverage
+      - ./reports:/app/reports
+
+  # Build the Linux release bundle and copy it to ./dist
+  build:
+    <<: *build-args
+    build:
+      context: .
+      args:
+        FLUTTER_VERSION: "3.38.6"
+      target: build
+    volumes:
+      - ./dist:/app/build/linux/x64/release/bundle
+
+  # Run formatting check + static analysis
+  analyze:
+    build:
+      context: .
+      args:
+        FLUTTER_VERSION: "3.38.6"
+      target: deps
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: >
+      sh -c "
+        dart format --output=none --set-exit-if-changed lib/* test/* &&
+        dart run import_sorter:main --exit-if-changed &&
+        flutter analyze --fatal-infos
+      "
