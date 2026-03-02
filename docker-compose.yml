@@ -46,3 +46,25 @@ services:
         dart run import_sorter:main --exit-if-changed &&
         flutter analyze --fatal-infos
       "
+
+  web:
+    build:
+      context: .
+      args:
+        FLUTTER_VERSION: "3.38.6"
+      target: web
+    ports:
+      - "8080:80"
+
+
+  run:
+    build:
+      context: .
+      args:
+        FLUTTER_VERSION: "3.38.6"
+      target: release
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    network_mode: host

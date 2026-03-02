@@ -39,3 +39,4 @@ This dashboard wouldn't have been made without the help and inspiration from the
 <a href="https://github.com/Gold872/elastic_dashboard/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Gold872/elastic_dashboard" />
 </a>
+

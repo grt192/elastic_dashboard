@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN git clone --depth 1 --branch ${FLUTTER_VERSION} \
         https://github.com/flutter/flutter.git ${FLUTTER_HOME} \
-    && flutter precache --linux \
+    && flutter precache --linux --web \
     && flutter config --no-analytics \
     && flutter doctor -v
 
@@ -65,3 +65,18 @@ WORKDIR /opt/elastic-dashboard
 # The app is a GUI application; running it here requires an X11/Wayland
 # display forwarded from the host (e.g. -e DISPLAY=$DISPLAY -v /tmp/.X11-unix).
 CMD ["/opt/elastic-dashboard/elastic_dashboard"]
+
+FROM deps AS web-build
+
+COPY . .
+
+RUN dart run flutter_launcher_icons \
+    && flutter build web --release
+
+FROM nginx:stable-alpine AS web
+
+COPY --from=web-build /app/build/web /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
