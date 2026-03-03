@@ -46,8 +46,7 @@ class IntakeStateWidget extends NTWidget {
             const SizedBox(height: 8),
             Text(
               currentState,
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ],
         );

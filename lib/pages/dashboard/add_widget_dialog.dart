@@ -144,15 +144,21 @@ class _AddWidgetDialogState extends State<AddWidgetDialog> {
                               preferences: widget.preferences,
                               topic: '/SmartDashboard/Intake/State',
                             );
-                            double width =
-                                NTWidgetRegistry.getDefaultWidth(model);
-                            double height =
-                                NTWidgetRegistry.getDefaultHeight(model);
+                            double width = NTWidgetRegistry.getDefaultWidth(
+                              model,
+                            );
+                            double height = NTWidgetRegistry.getDefaultHeight(
+                              model,
+                            );
                             return NTWidgetContainerModel(
                               ntConnection: widget.ntConnection,
                               preferences: widget.preferences,
-                              initialPosition:
-                                  Rect.fromLTWH(0, 0, width, height),
+                              initialPosition: Rect.fromLTWH(
+                                0,
+                                0,
+                                width,
+                                height,
+                              ),
                               title: 'Intake State',
                               childModel: model,
                             );
@@ -171,15 +177,21 @@ class _AddWidgetDialogState extends State<AddWidgetDialog> {
                               preferences: widget.preferences,
                               topic: '/SmartDashboard/Shooter/State',
                             );
-                            double width =
-                                NTWidgetRegistry.getDefaultWidth(model);
-                            double height =
-                                NTWidgetRegistry.getDefaultHeight(model);
+                            double width = NTWidgetRegistry.getDefaultWidth(
+                              model,
+                            );
+                            double height = NTWidgetRegistry.getDefaultHeight(
+                              model,
+                            );
                             return NTWidgetContainerModel(
                               ntConnection: widget.ntConnection,
                               preferences: widget.preferences,
-                              initialPosition:
-                                  Rect.fromLTWH(0, 0, width, height),
+                              initialPosition: Rect.fromLTWH(
+                                0,
+                                0,
+                                width,
+                                height,
+                              ),
                               title: 'Shooter State',
                               childModel: model,
                             );
@@ -198,15 +210,21 @@ class _AddWidgetDialogState extends State<AddWidgetDialog> {
                               preferences: widget.preferences,
                               topic: '/SmartDashboard/Climb/State',
                             );
-                            double width =
-                                NTWidgetRegistry.getDefaultWidth(model);
-                            double height =
-                                NTWidgetRegistry.getDefaultHeight(model);
+                            double width = NTWidgetRegistry.getDefaultWidth(
+                              model,
+                            );
+                            double height = NTWidgetRegistry.getDefaultHeight(
+                              model,
+                            );
                             return NTWidgetContainerModel(
                               ntConnection: widget.ntConnection,
                               preferences: widget.preferences,
-                              initialPosition:
-                                  Rect.fromLTWH(0, 0, width, height),
+                              initialPosition: Rect.fromLTWH(
+                                0,
+                                0,
+                                width,
+                                height,
+                              ),
                               title: 'Climb State',
                               childModel: model,
                             );
